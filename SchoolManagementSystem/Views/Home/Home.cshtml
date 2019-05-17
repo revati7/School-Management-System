@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_HomeLayoutPage.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <table align="center">
+        <tr>
+            <td colspan="3" align="center"><h4>School Management System</h4></td>
+        </tr>
+        <tr>
+            <td colspan="3" align="center">
+                <h4>Kindly Login to Proceed</h4>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <div class="dropdown">
+                    <button class="btn btn-info" style="width:196px">Login</button>
+                    <div class="dropdown-content">
+                        @Html.ActionLink("Login as Administrator", "AdminLogin", "Home")
+                        @Html.ActionLink("Login as Cashier", "CashierLogin", "Home")
+                        @Html.ActionLink("Login as Teacher", "TeacherLogin", "Home")
+                    </div>
+                </div>
+            </td>
+            @*<td align="center">
+                &nbsp;
+                @Html.ActionLink("Login as Administrator", "AdminLogin", "Home", new { @class = "btn btn-info" }) 
+            </td>
+            <td align="center">
+                &nbsp;
+                @Html.ActionLink("Login as Cashier", "CashierLogin", "Home", new { @class = "btn btn-info" }) 
+            </td>
+            <td align="center">
+                &nbsp;
+                @Html.ActionLink("Login as Teacher", "TeacherLogin", "Home", new { @class = "btn btn-info" })
+                &nbsp;
+            </td>*@
+        </tr>
+    </table>
+}

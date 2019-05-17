@@ -1,0 +1,90 @@
+﻿@model SchoolManagementSystem.Models.tbl_Fees
+
+@{
+    ViewBag.Title = "Invoice";
+    Layout = "~/Views/Shared/_CashierLayoutPage.cshtml";
+}
+
+<h4>Invoice</h4>
+<br />
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+<div style="color:black;">
+    <table class="table table-responsive table-bordered" style="color:black;">
+        <thead style="background-color:white;">
+            <tr>
+                <td align="center" colspan="2">
+                    Payment Invoice
+                </td>
+            </tr>
+        </thead>
+        <tr style="background-color:white;">
+            <td>
+                @Html.DisplayNameFor(model => model.InvoiceID) :
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.InvoiceID)
+            </td>
+        </tr>
+        <tr style="background-color:white;">
+            <td>
+                @Html.DisplayNameFor(model => model.tbl_Student.StudentName) :
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.tbl_Student.StudentName)
+            </td>
+        </tr>
+        <tr style="background-color:white;">
+            <td>
+                @Html.DisplayNameFor(model => model.tbl_Grade.GradeName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.tbl_Grade.GradeName)
+            </td>
+        </tr>
+        <tr style="background-color:white;">
+            <td>
+                @Html.DisplayNameFor(model => model.PaymentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PaymentDate)
+            </td>
+        </tr>
+        <tr style="background-color:white;">
+            <td>
+                @Html.DisplayNameFor(model => model.Paid)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Paid)
+            </td>
+        </tr>
+        <tr style="background-color:white;">
+            <td>
+                @Html.DisplayNameFor(model => model.Pending)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Pending)
+            </td>
+        </tr>
+        <tr style="background-color:white;">
+            <td>
+                @Html.DisplayNameFor(model => model.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Total)
+            </td>
+        </tr>
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("Home", "DashBoard", "Cashier", new { @class = "btn btn-info" })
+    <input type="button" class="btn btn-info" value="Print" onclick="javascript:window.print()"/>
+</p>

@@ -1,0 +1,64 @@
+﻿@model SchoolManagementSystem.Models.tbl_User
+
+@{
+    ViewBag.Title = "Create User";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h4>Create New User</h4>
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+@using (Html.BeginForm())
+{
+    <table id="createTable" class="table table-responsive" align="center">
+        <tr>
+            <td>
+                <div>
+                    <label for="Email">User Email</label>
+                    @Html.TextBoxFor(u => u.Email, new { @type = "email", @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.Email)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <label for="Password">Password</label>
+                    @Html.TextBoxFor(u => u.Password, new { @type = "password", @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.Password)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <label for="role">User Role</label>
+                    <select name="role" class="form-control">
+                        <option value="">Select Role</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Cashier">Cashier</option>
+                        <option value="Teacher">Teacher</option>
+                    </select>
+                    @Html.ValidationMessageFor(u => u.UserRole)
+                </div><br />
+            </td>
+        </tr>
+        <tr class="col-xs-4">
+            <td>
+                <div>
+                    <input type="submit" id="btnSubmit" value="Create" class="btn btn-info" />
+                    <input type="button" id="btnCancel" value="Back to Users" class="btn btn-info" onclick="location.href='@Url.Action("Users","Admin")'" />
+                </div>
+            </td>
+        </tr>
+    </table>
+}
+

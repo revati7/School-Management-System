@@ -1,0 +1,26 @@
+﻿@model SchoolManagementSystem.Models.tbl_User
+
+@{
+    ViewBag.Title = "Delete User";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h4>Delete User</h4>
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+<h5>Confirm Delete?</h5>
+@using (Html.BeginForm())
+{
+    <div class="form-actions">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <input type="button" id="btnCancel" value="Cancel" class="btn btn-info" onclick="location.href='@Url.Action("Users","Admin")'" />
+    </div>
+}

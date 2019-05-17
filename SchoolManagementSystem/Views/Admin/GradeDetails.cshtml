@@ -1,0 +1,43 @@
+﻿@model SchoolManagementSystem.Models.tbl_Grade
+
+@{
+    ViewBag.Title = "Grade Detail's";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h4>Grade Detail's</h4>
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+<div style="color:black;">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GradeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GradeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <input type="button" id="btnEdit" value="Edit" class="btn btn-info" onclick="location.href='@Url.Action("EditGrade","Admin", new { id= Model.GradeID })'" />
+    <input type="button" id="btnCancel" value="Back to Grades" class="btn btn-info" onclick="location.href='@Url.Action("Grades","Admin")'" />
+</p>

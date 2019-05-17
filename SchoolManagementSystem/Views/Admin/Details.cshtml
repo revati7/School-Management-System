@@ -1,0 +1,41 @@
+﻿@model SchoolManagementSystem.Models.tbl_User
+
+@{
+    ViewBag.Title = "User Detail's";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h4>Detail's</h4>
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+<div style="color:black;">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(u => u.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(u => u.Email)
+        </dd>
+
+        <dt>
+            <label for="UserRole">Role</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(u => u.UserRole)
+        </dd>
+    </dl>
+</div>
+<p>
+    <input type="button" id="btnCancel" value="Back to Users" class="btn btn-info" onclick="location.href='@Url.Action("Users","Admin")'" />
+</p>

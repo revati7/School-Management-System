@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bdb3e80e10be4858bd0c107d2a7476a1" Name="Diagram1">
+        <EntityTypeShape EntityType="SMSModel.tbl_Teacher" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SMSModel.tbl_User" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SMSModel.tbl_Grade" Width="1.5" PointX="5" PointY="0.875" />
+        <EntityTypeShape EntityType="SMSModel.tbl_Student" Width="1.5" PointX="7.25" PointY="4.5" />
+        <AssociationConnector Association="SMSModel.Fk_GradeID" />
+        <AssociationConnector Association="SMSModel.Fk_GradeIDStudent" />
+        <EntityTypeShape EntityType="SMSModel.tbl_Absence" Width="1.5" PointX="9.5" PointY="3.125" />
+        <AssociationConnector Association="SMSModel.FK__tbl_Absen__Grade__7A3223E8" />
+        <AssociationConnector Association="SMSModel.FK__tbl_Absen__StudI__793DFFAF" />
+        <EntityTypeShape EntityType="SMSModel.tbl_Fees" Width="1.5" PointX="12.5" PointY="3" />
+        <AssociationConnector Association="SMSModel.FK__tbl_Fees__GradeI__7EF6D905" />
+        <AssociationConnector Association="SMSModel.FK__tbl_Fees__Studen__7E02B4CC" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

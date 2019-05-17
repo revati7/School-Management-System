@@ -1,0 +1,92 @@
+﻿@model IEnumerable<SchoolManagementSystem.Models.tbl_Absence>
+
+@{
+    /**/
+
+    ViewBag.Title = "Records";
+    Layout = "~/Views/Shared/_TeacherLayoutPage.cshtml";
+}
+
+<h4>Attendance Record's</h4>
+<br />
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+@using (Html.BeginForm())
+{
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <input type="date" id="date" name="date" class="form-control" />
+                </td>
+                <td>
+                    &nbsp;
+                    <input type="submit" value="Search" class="btn btn-info" />
+                </td>
+                <td>
+                    &nbsp;
+                    <input type="button" id="btnDisplayAll" value="Clear" class="btn btn-info" onclick="location.href='@Url.Action("Records","Teacher")'" />
+                </td>
+                <td>
+                    &nbsp;
+                    <input type="button" class="btn btn-info" value="Print" onclick="javascript:window.print()" />
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+<br />
+@{
+    if (Model.Count() != 0)
+    {
+        <table class="table table-borderless table-hover w-100" style="color:black;">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(model => model.tbl_Student.StudentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tbl_Grade.GradeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AbsenceDate)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr class="table-secondary">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tbl_Student.StudentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tbl_Grade.GradeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AbsenceDate, "{0:yyyy-MM-dd}")
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <table>
+            <tr>
+                <td>
+                    <h6 style="color:red;">No records with this date.</h6>
+                </td>
+            </tr>
+        </table>
+    }
+}
+
+

@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Absence">
+          <Key>
+            <PropertyRef Name="AttendanceID" />
+          </Key>
+          <Property Name="AttendanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudID" Type="int" />
+          <Property Name="GradeID" Type="int" />
+          <Property Name="AbsenceDate" Type="date" />
+        </EntityType>
+        <EntityType Name="tbl_Fees">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentDate" Type="date" />
+          <Property Name="StudentID" Type="int" />
+          <Property Name="GradeID" Type="int" />
+          <Property Name="Paid" Type="float" />
+          <Property Name="Pending" Type="float" />
+          <Property Name="Total" Type="float" />
+        </EntityType>
+        <EntityType Name="tbl_Grade">
+          <Key>
+            <PropertyRef Name="GradeID" />
+          </Key>
+          <Property Name="GradeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GradeName" Type="varchar" MaxLength="20" />
+          <Property Name="Description" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="tbl_Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentName" Type="varchar" MaxLength="50" />
+          <Property Name="GradeID" Type="int" />
+          <Property Name="Gender" Type="varchar" MaxLength="1" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="BloodGroup" Type="varchar" MaxLength="5" />
+          <Property Name="Contact" Type="varchar" MaxLength="10" />
+          <Property Name="Address" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="tbl_Teacher">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="DOB" Type="date" Nullable="false" />
+          <Property Name="Contact" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="150" />
+          <Property Name="Address" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="GradeID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="150" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserRole" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tbl_Absen__Grade__7A3223E8">
+          <End Role="tbl_Grade" Type="Self.tbl_Grade" Multiplicity="0..1" />
+          <End Role="tbl_Absence" Type="Self.tbl_Absence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="tbl_Absence">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Absen__StudI__793DFFAF">
+          <End Role="tbl_Student" Type="Self.tbl_Student" Multiplicity="0..1" />
+          <End Role="tbl_Absence" Type="Self.tbl_Absence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="tbl_Absence">
+              <PropertyRef Name="StudID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Fees__GradeI__7EF6D905">
+          <End Role="tbl_Grade" Type="Self.tbl_Grade" Multiplicity="0..1" />
+          <End Role="tbl_Fees" Type="Self.tbl_Fees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="tbl_Fees">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Fees__Studen__7E02B4CC">
+          <End Role="tbl_Student" Type="Self.tbl_Student" Multiplicity="0..1" />
+          <End Role="tbl_Fees" Type="Self.tbl_Fees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="tbl_Fees">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_GradeID">
+          <End Role="tbl_Grade" Type="Self.tbl_Grade" Multiplicity="0..1" />
+          <End Role="tbl_Teacher" Type="Self.tbl_Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="tbl_Teacher">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_GradeIDStudent">
+          <End Role="tbl_Grade" Type="Self.tbl_Grade" Multiplicity="0..1" />
+          <End Role="tbl_Student" Type="Self.tbl_Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="tbl_Student">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'Fk_Teacher' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="Fk_Teacher" />-->
+        <EntityContainer Name="SMSModelStoreContainer">
+          <EntitySet Name="tbl_Absence" EntityType="Self.tbl_Absence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Fees" EntityType="Self.tbl_Fees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Grade" EntityType="Self.tbl_Grade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Student" EntityType="Self.tbl_Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Teacher" EntityType="Self.tbl_Teacher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_User" EntityType="Self.tbl_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tbl_Absen__Grade__7A3223E8" Association="Self.FK__tbl_Absen__Grade__7A3223E8">
+            <End Role="tbl_Grade" EntitySet="tbl_Grade" />
+            <End Role="tbl_Absence" EntitySet="tbl_Absence" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Absen__StudI__793DFFAF" Association="Self.FK__tbl_Absen__StudI__793DFFAF">
+            <End Role="tbl_Student" EntitySet="tbl_Student" />
+            <End Role="tbl_Absence" EntitySet="tbl_Absence" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Fees__GradeI__7EF6D905" Association="Self.FK__tbl_Fees__GradeI__7EF6D905">
+            <End Role="tbl_Grade" EntitySet="tbl_Grade" />
+            <End Role="tbl_Fees" EntitySet="tbl_Fees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Fees__Studen__7E02B4CC" Association="Self.FK__tbl_Fees__Studen__7E02B4CC">
+            <End Role="tbl_Student" EntitySet="tbl_Student" />
+            <End Role="tbl_Fees" EntitySet="tbl_Fees" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_GradeID" Association="Self.Fk_GradeID">
+            <End Role="tbl_Grade" EntitySet="tbl_Grade" />
+            <End Role="tbl_Teacher" EntitySet="tbl_Teacher" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_GradeIDStudent" Association="Self.Fk_GradeIDStudent">
+            <End Role="tbl_Grade" EntitySet="tbl_Grade" />
+            <End Role="tbl_Student" EntitySet="tbl_Student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SMSTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Teacher" EntityType="SMSModel.tbl_Teacher" />
+          <EntitySet Name="tbl_User" EntityType="SMSModel.tbl_User" />
+          <EntitySet Name="tbl_Grade" EntityType="SMSModel.tbl_Grade" />
+          <EntitySet Name="tbl_Student" EntityType="SMSModel.tbl_Student" />
+          <AssociationSet Name="Fk_GradeID" Association="SMSModel.Fk_GradeID">
+            <End Role="tbl_Grade" EntitySet="tbl_Grade" />
+            <End Role="tbl_Teacher" EntitySet="tbl_Teacher" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_GradeIDStudent" Association="SMSModel.Fk_GradeIDStudent">
+            <End Role="tbl_Grade" EntitySet="tbl_Grade" />
+            <End Role="tbl_Student" EntitySet="tbl_Student" />
+          </AssociationSet>
+          <EntitySet Name="tbl_Absence" EntityType="SMSModel.tbl_Absence" />
+          <AssociationSet Name="FK__tbl_Absen__Grade__7A3223E8" Association="SMSModel.FK__tbl_Absen__Grade__7A3223E8">
+            <End Role="tbl_Grade" EntitySet="tbl_Grade" />
+            <End Role="tbl_Absence" EntitySet="tbl_Absence" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Absen__StudI__793DFFAF" Association="SMSModel.FK__tbl_Absen__StudI__793DFFAF">
+            <End Role="tbl_Student" EntitySet="tbl_Student" />
+            <End Role="tbl_Absence" EntitySet="tbl_Absence" />
+          </AssociationSet>
+          <EntitySet Name="tbl_Fees" EntityType="SMSModel.tbl_Fees" />
+          <AssociationSet Name="FK__tbl_Fees__GradeI__7EF6D905" Association="SMSModel.FK__tbl_Fees__GradeI__7EF6D905">
+            <End Role="tbl_Grade" EntitySet="tbl_Grade" />
+            <End Role="tbl_Fees" EntitySet="tbl_Fees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Fees__Studen__7E02B4CC" Association="SMSModel.FK__tbl_Fees__Studen__7E02B4CC">
+            <End Role="tbl_Student" EntitySet="tbl_Student" />
+            <End Role="tbl_Fees" EntitySet="tbl_Fees" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="tbl_Teacher">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Contact" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="GradeID" Type="Int32" />
+          <NavigationProperty Name="tbl_Grade" Relationship="SMSModel.Fk_GradeID" FromRole="tbl_Teacher" ToRole="tbl_Grade" />
+        </EntityType>
+        <EntityType Name="tbl_User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserRole" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_Grade">
+          <Key>
+            <PropertyRef Name="GradeID" />
+          </Key>
+          <Property Name="GradeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GradeName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Teacher" Relationship="SMSModel.Fk_GradeID" FromRole="tbl_Grade" ToRole="tbl_Teacher" />
+          <NavigationProperty Name="tbl_Student" Relationship="SMSModel.Fk_GradeIDStudent" FromRole="tbl_Grade" ToRole="tbl_Student" />
+          <NavigationProperty Name="tbl_Absence" Relationship="SMSModel.FK__tbl_Absen__Grade__7A3223E8" FromRole="tbl_Grade" ToRole="tbl_Absence" />
+          <NavigationProperty Name="tbl_Fees" Relationship="SMSModel.FK__tbl_Fees__GradeI__7EF6D905" FromRole="tbl_Grade" ToRole="tbl_Fees" />
+        </EntityType>
+        <EntityType Name="tbl_Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GradeID" Type="Int32" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="BloodGroup" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Contact" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Grade" Relationship="SMSModel.Fk_GradeIDStudent" FromRole="tbl_Student" ToRole="tbl_Grade" />
+          <NavigationProperty Name="tbl_Absence" Relationship="SMSModel.FK__tbl_Absen__StudI__793DFFAF" FromRole="tbl_Student" ToRole="tbl_Absence" />
+          <NavigationProperty Name="tbl_Fees" Relationship="SMSModel.FK__tbl_Fees__Studen__7E02B4CC" FromRole="tbl_Student" ToRole="tbl_Fees" />
+        </EntityType>
+        <Association Name="Fk_GradeID">
+          <End Type="SMSModel.tbl_Grade" Role="tbl_Grade" Multiplicity="0..1" />
+          <End Type="SMSModel.tbl_Teacher" Role="tbl_Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="tbl_Teacher">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_GradeIDStudent">
+          <End Type="SMSModel.tbl_Grade" Role="tbl_Grade" Multiplicity="0..1" />
+          <End Type="SMSModel.tbl_Student" Role="tbl_Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="tbl_Student">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbl_Absence">
+          <Key>
+            <PropertyRef Name="AttendanceID" />
+          </Key>
+          <Property Name="AttendanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudID" Type="Int32" />
+          <Property Name="GradeID" Type="Int32" />
+          <Property Name="AbsenceDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tbl_Grade" Relationship="SMSModel.FK__tbl_Absen__Grade__7A3223E8" FromRole="tbl_Absence" ToRole="tbl_Grade" />
+          <NavigationProperty Name="tbl_Student" Relationship="SMSModel.FK__tbl_Absen__StudI__793DFFAF" FromRole="tbl_Absence" ToRole="tbl_Student" />
+        </EntityType>
+        <Association Name="FK__tbl_Absen__Grade__7A3223E8">
+          <End Type="SMSModel.tbl_Grade" Role="tbl_Grade" Multiplicity="0..1" />
+          <End Type="SMSModel.tbl_Absence" Role="tbl_Absence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="tbl_Absence">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Absen__StudI__793DFFAF">
+          <End Type="SMSModel.tbl_Student" Role="tbl_Student" Multiplicity="0..1" />
+          <End Type="SMSModel.tbl_Absence" Role="tbl_Absence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="tbl_Absence">
+              <PropertyRef Name="StudID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbl_Fees">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="0" />
+          <Property Name="StudentID" Type="Int32" />
+          <Property Name="GradeID" Type="Int32" />
+          <Property Name="Paid" Type="Double" />
+          <Property Name="Pending" Type="Double" />
+          <NavigationProperty Name="tbl_Grade" Relationship="SMSModel.FK__tbl_Fees__GradeI__7EF6D905" FromRole="tbl_Fees" ToRole="tbl_Grade" />
+          <NavigationProperty Name="tbl_Student" Relationship="SMSModel.FK__tbl_Fees__Studen__7E02B4CC" FromRole="tbl_Fees" ToRole="tbl_Student" />
+          <Property Name="Total" Type="Double" />
+        </EntityType>
+        <Association Name="FK__tbl_Fees__GradeI__7EF6D905">
+          <End Type="SMSModel.tbl_Grade" Role="tbl_Grade" Multiplicity="0..1" />
+          <End Type="SMSModel.tbl_Fees" Role="tbl_Fees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="tbl_Fees">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_Fees__Studen__7E02B4CC">
+          <End Type="SMSModel.tbl_Student" Role="tbl_Student" Multiplicity="0..1" />
+          <End Type="SMSModel.tbl_Fees" Role="tbl_Fees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="tbl_Fees">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SMSModelStoreContainer" CdmEntityContainer="SMSTEntities">
+          <EntitySetMapping Name="tbl_Teacher">
+            <EntityTypeMapping TypeName="SMSModel.tbl_Teacher">
+              <MappingFragment StoreEntitySet="tbl_Teacher">
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_User">
+            <EntityTypeMapping TypeName="SMSModel.tbl_User">
+              <MappingFragment StoreEntitySet="tbl_User">
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Grade">
+            <EntityTypeMapping TypeName="SMSModel.tbl_Grade">
+              <MappingFragment StoreEntitySet="tbl_Grade">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Student">
+            <EntityTypeMapping TypeName="SMSModel.tbl_Student">
+              <MappingFragment StoreEntitySet="tbl_Student">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Absence">
+            <EntityTypeMapping TypeName="SMSModel.tbl_Absence">
+              <MappingFragment StoreEntitySet="tbl_Absence">
+                <ScalarProperty Name="AbsenceDate" ColumnName="AbsenceDate" />
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+                <ScalarProperty Name="StudID" ColumnName="StudID" />
+                <ScalarProperty Name="AttendanceID" ColumnName="AttendanceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Fees">
+            <EntityTypeMapping TypeName="SMSModel.tbl_Fees">
+              <MappingFragment StoreEntitySet="tbl_Fees">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Pending" ColumnName="Pending" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

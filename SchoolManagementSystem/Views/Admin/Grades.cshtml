@@ -1,0 +1,98 @@
+﻿@model IEnumerable<SchoolManagementSystem.Models.tbl_Grade>
+
+@{
+    ViewBag.Title = "Grades";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h4>Grade's</h4>
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+@using (Html.BeginForm())
+{
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <select name="gradeID" class="form-control">
+                        <option value="0">Search by Grade</option>
+                        <option value="1">1st Grade</option>
+                        <option value="2">2nd Grade</option>
+                        <option value="3">3rd Grade</option>
+                        <option value="4">4th Grade</option>
+                        <option value="5">5th Grade</option>
+                        <option value="6">6th Grade</option>
+                        <option value="7">7th Grade</option>
+                        <option value="8">8th Grade</option>
+                        <option value="9">9th Grade</option>
+                        <option value="10">10th Grade</option>
+                    </select>
+                </td>
+                <td>
+                    &nbsp;
+                    <input type="submit" value="Search by Grade" class="btn btn-info" />
+                </td>
+                <td>
+                    &nbsp;
+                    <input type="button" id="btnDisplayAllTeachers" value="Clear" class="btn btn-info" onclick="location.href='@Url.Action("Grades","Admin")'" />
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+<br />
+
+@{
+    if (Model.Count() != 0)
+    {
+        <table class="table table-borderless table-hover w-100" style="color:black;">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(model => model.GradeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>Options</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr class="table-secondary">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GradeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditGrade", new { id = item.GradeID }, htmlAttributes: new { @class = "btn btn-info" })
+                        @Html.ActionLink("Details", "GradeDetails", new { id = item.GradeID }, htmlAttributes: new { @class = "btn btn-info" })
+                        @Html.ActionLink("Delete", "DeleteGrade", new { id = item.GradeID }, htmlAttributes: new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <table>
+            <tr>
+                <td>
+                    <h6 style="color:red;">No such grade's found.</h6>
+                </td>
+            </tr>
+        </table>
+    }
+}
+
+

@@ -1,0 +1,68 @@
+﻿@model SchoolManagementSystem.Models.tbl_Fees
+
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_CashierLayoutPage.cshtml";
+}
+
+<h4>Fees Payment</h4>
+<br />
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StudentID, "StudentID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.StudentID, new { @class = "control-label col-md-2" })
+            @Html.HiddenFor(model => model.StudentID)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.GradeID, "GradeID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.GradeID, new { @class = "control-label col-md-2" })
+            @Html.HiddenFor(model => model.GradeID)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Paid" class="control-label col-md-2">Amount</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Paid, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+            @Html.ValidationMessageFor(model => model.Paid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Total, "Total", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+            @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Confirm Payment" class="btn btn-info" />
+            <input type="button" id="btnCancel" value="Cancel" class="btn btn-info" onclick="location.href='@Url.Action("Students","Cashier")'" />
+        </div>
+    </div>
+</div>
+}
+

@@ -1,0 +1,24 @@
+﻿@*@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+
+@{
+    string CurrentName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    dynamic Layout;
+    switch (CurrentName)
+    {
+        case "Admin":
+            Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+            break;
+        case "Cashier":
+            Layout = "~/Views/Shared/_CashierLayoutPage.cshtml";
+            break;
+        case "Teacher":
+            Layout = "~/Views/Shared/_TeacherLayoutPage.cshtml";
+            break;
+        default:
+            //Home layout
+            Layout = "~/Views/Shared/_HomeLayoutPage.cshtml";
+            break;
+    }
+}   

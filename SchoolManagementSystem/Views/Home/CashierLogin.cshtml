@@ -1,0 +1,59 @@
+﻿@model SchoolManagementSystem.Models.tbl_User
+
+@{
+    ViewBag.Title = "Cashier Login";
+    Layout = "~/Views/Shared/_HomeLayoutPage.cshtml";
+}
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+@using (Html.BeginForm("CashierLogin", "Home", FormMethod.Post))
+{
+    <fieldset>
+        <h5>Cashier Login</h5>
+        <br />
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @if (@ViewBag.Message != null)
+        {
+            <div style="border: 1px solid red">
+                @ViewBag.Message
+            </div>
+        }
+        <table class="table table-borderless table-hover table-responsive" style="color:black;">
+            <tr>
+                <td>@Html.LabelFor(a => a.Email)</td>
+                <td>@Html.TextBoxFor(a => a.Email, new { @type = "email", @class = "form-control" })</td>
+                <td>@Html.ValidationMessageFor(a => a.Email)</td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(a => a.Password)
+                </td>
+                <td>
+                    @Html.PasswordFor(a => a.Password, new { @type = "password", @class = "form-control" })
+                </td>
+                <td>
+                    @Html.ValidationMessageFor(a => a.Password)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <br />
+                    <input type="submit" value="Login" class="btn btn-info" />
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </fieldset>
+}
+

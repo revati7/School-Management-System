@@ -1,0 +1,50 @@
+﻿@model SchoolManagementSystem.Models.tbl_User
+
+@{
+    /**/
+
+    ViewBag.Title = "Edit User";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h4>Edit</h4>
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+@using (Html.BeginForm())
+{
+
+    <div>
+        @Html.HiddenFor(u => u.UserID)
+    </div>
+    <div>
+        @Html.LabelFor(u => u.Email)
+        @Html.TextBoxFor(u => u.Email, new { @type = "email", @class = "form-control" })
+        @Html.ValidationMessageFor(u => u.Email)
+    </div>
+    <div>
+        @Html.HiddenFor(u => u.Password)
+    </div>
+    <div>
+        @Html.LabelFor(u => u.UserRole)
+        <select name="UserRole" class="form-control">
+            <option value="">Select Updated Role</option>
+            <option value="Admin">Admin</option>
+            <option value="Cashier">Cashier</option>
+            <option value="Teacher">Teacher</option>
+        </select>
+        @Html.ValidationMessageFor(u => u.UserRole)
+    </div><br />
+    <div>
+        <input type="submit" id="btnSubmit" value="Update" class="btn btn-info" />
+        <input type="button" id="btnCancel" value="Cancel" class="btn btn-info" onclick="location.href='@Url.Action("Users","Admin")'" />
+    </div>
+
+}

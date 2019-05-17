@@ -1,0 +1,99 @@
+﻿@model IEnumerable<SchoolManagementSystem.Models.tbl_Student>
+
+@{
+    ViewBag.Title = "Attendance";
+    Layout = "~/Views/Shared/_TeacherLayoutPage.cshtml";
+}
+
+<h4>Student's Attendance</h4>
+<br />
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+@using (Html.BeginForm())
+{
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <input type="text" name="name" placeholder="Search by name" class="form-control" />
+                </td>
+                <td>
+                    &nbsp;
+                    <input type="submit" value="Search by Name" class="btn btn-info" />
+                </td>
+                <td>
+                    &nbsp;
+                    <input type="button" id="btnDisplayAllStudents" value="Clear" class="btn btn-info" onclick="location.href='@Url.Action("Attendance","Teacher")'" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <h5></h5>
+
+}
+<br />
+
+@{
+    if (Model.Count() != 0)
+    {
+        <h6 style="color:red;">*Only mark attendance for absent student's.</h6>
+        <table class="table table-borderless table-hover w-100" style="color:black;">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(model => model.StudentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tbl_Grade.GradeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Contact)
+                </th>
+                <th>Options</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr class="table-secondary">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tbl_Grade.GradeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contact)
+                    </td>
+                    <td>
+                        <input type="button" id="btnAbsence" value="Mark Attendance" class="btn btn-info" onclick="location.href='@Url.Action("Absence", "Teacher", new { studID = item.StudentID, gradeID = item.GradeID })'" />
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <table>
+            <tr>
+                <td>
+                    <h6 style="color:red;">No students with this name. Search again with correct details.</h6>
+                </td>
+            </tr>
+        </table>
+    }
+}
+

@@ -1,0 +1,39 @@
+﻿@model SchoolManagementSystem.Models.tbl_User
+
+@{
+                /**/
+
+                ViewBag.Title = "DashBoard";
+                Layout = "~/Views/Shared/_CashierLayoutPage.cshtml";
+}
+
+@{ 
+    if(TempData["message"] != null)
+    {
+        <script type="text/javascript">
+            alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <h4> Cashier DashBoard </h4>
+        <br />
+        @if (Session["Email"] != null)
+        {
+            <h4>
+                Welcome @Session["Email"].ToString()
+            </h4>
+        }
+    </fieldset>
+    <br />
+    <table class="table table-responsive" style="color:black;">
+        <tr>
+            <td>@Html.ActionLink("Students", "Students", "Cashier", new { @class = "btn btn-info" })</td>
+            <td>@Html.ActionLink("Check Previous Payments", "Records", "Cashier", new { @class = "btn btn-info" })</td>
+        </tr>
+    </table>
+}
+

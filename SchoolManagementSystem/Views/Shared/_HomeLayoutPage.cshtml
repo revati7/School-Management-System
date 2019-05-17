@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-lux.css" rel="stylesheet" />
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />*@
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <style>
+        header {
+            position: relative;
+            margin: 0;
+            padding-top: 0px;
+        }
+
+        body {
+            padding: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            margin: 0px;
+        }
+
+        .navbar-header {
+            padding: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin: 0px;
+        }
+
+        .jumbotron {
+            padding: 30px;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 30px;
+            padding-bottom: 150px;
+            margin: 0px;
+        }
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-header navbar-fixed-top shadow">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                @Html.ActionLink("Home", "Home", "Home", new { @class = "btn btn-light" }) &nbsp;
+                @Html.ActionLink("About", "About", "Home", new { @class = "btn btn-light" }) &nbsp;
+            </div>
+        </div>
+    </nav>
+    <div class="jumbotronn shadow" style="background-color:#DCECF2; padding:50px; padding-bottom:450px;" width="90%">
+        @RenderBody()
+    </div>
+
+    <div>
+        <footer class="container-fluid text-center">
+            <p>&copy; @DateTime.Now.Year - Capgemini</p>
+        </footer>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+</body>
+</html>

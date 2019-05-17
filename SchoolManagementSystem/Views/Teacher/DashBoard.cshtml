@@ -1,0 +1,27 @@
+﻿@model SchoolManagementSystem.Models.tbl_User
+
+@{
+    ViewBag.Title = "DashBoard";
+    Layout = "~/Views/Shared/_TeacherLayoutPage.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <h4> Teacher DashBoard </h4>
+        <br />
+        @if (Session["Email"] != null)
+        {
+            <h4>
+                Welcome @Session["Email"].ToString()
+            </h4>
+        }
+    </fieldset>
+    <br />
+    <table class="table table-responsive" style="color:black;">
+        <tr>
+            <td>@Html.ActionLink("Mark Attendance", "Attendance", "Teacher", new { @class = "btn btn-info" })</td>
+            <td>@Html.ActionLink("View / Manage Profile", "Details", "Teacher", new { @class = "btn btn-info" })</td>
+        </tr>
+    </table>
+}
